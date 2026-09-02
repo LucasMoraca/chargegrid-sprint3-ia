@@ -1,0 +1,15 @@
+# Segredos / credenciais
+.env
+*.key
+
+# Ambiente Python
+__pycache__/
+*.pyc
+.venv/
+venv/
+
+# Checkpoints e caches do Colab / Jupyter
+.ipynb_checkpoints/
+
+# Artefatos gerados localmente
+*.log
