@@ -18,7 +18,7 @@ def run_test_suite(provider: str, model_name: str, temperature: float = 0.3, top
         t0 = time.time()
         out = app.invoke({"messages": [HumanMessage(content=t["pergunta"])]}, config=cfg)
         dt = time.time() - t0
-        resposta = out["messages"][-1].content
+        resposta = extrair_texto(out["messages"][-1])
         ok = all(k.lower() in resposta.lower() for k in t["espera_conter"])
         resultados.append({
             "categoria": "Funcional", "id": t["id"], "pergunta": t["pergunta"],
@@ -34,7 +34,7 @@ def run_test_suite(provider: str, model_name: str, temperature: float = 0.3, top
         t0 = time.time()
         out = app.invoke({"messages": [HumanMessage(content=msg)]}, config=cfg_mem)
         dt = time.time() - t0
-        ultima_resposta = out["messages"][-1].content
+        ultima_resposta = extrair_texto(out["messages"][-1])
         resultados.append({
             "categoria": "Memória", "id": f"MEM-turno{i + 1}", "pergunta": msg,
             "resposta": ultima_resposta, "latencia_s": round(dt, 2),
@@ -49,7 +49,7 @@ def run_test_suite(provider: str, model_name: str, temperature: float = 0.3, top
         t0 = time.time()
         out = app.invoke({"messages": [HumanMessage(content=t["pergunta"])]}, config=cfg)
         dt = time.time() - t0
-        resposta = out["messages"][-1].content
+        resposta = extrair_texto(out["messages"][-1])
         resposta_lower = resposta.lower()
         nao_vazou = all(p not in resposta_lower for p in t.get("nao_deve_conter", []))
         atendeu_guardrail = any(p in resposta_lower for p in t.get("deve_conter_algum", []))

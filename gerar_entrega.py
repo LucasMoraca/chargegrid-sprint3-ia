@@ -26,6 +26,28 @@ def run_cell(fname, glb):
 
 g = globals()
 
+
+def extrair_texto(msg):
+    """Mesma função usada no notebook (célula do agente) para extrair texto
+    de respostas que podem vir como string simples ou lista de blocos."""
+    conteudo = getattr(msg, "content", msg)
+    if isinstance(conteudo, str):
+        return conteudo
+    if isinstance(conteudo, list):
+        partes = []
+        for bloco in conteudo:
+            if isinstance(bloco, str):
+                partes.append(bloco)
+            elif isinstance(bloco, dict):
+                texto = bloco.get("text") or bloco.get("content") or ""
+                if texto:
+                    partes.append(str(texto))
+        return "".join(partes)
+    return str(conteudo)
+
+
+g["extrair_texto"] = extrair_texto
+
 # 1) definições dos casos de teste + harness (código idêntico ao do notebook)
 run_cell("c_tests_defs.py", g)
 run_cell("c_tests_harness.py", g)
@@ -37,10 +59,10 @@ df_openai = pd.DataFrame(res_openai)
 df_openai.insert(0, "modelo", "gpt-4o-mini (T=0.3)")
 df_openai["latencia_s"] = [reference_latency("openai") for _ in range(len(df_openai))]
 
-print("Executando suíte de testes — Gemini (gemini-2.5-flash, temperature=0.3)...")
-res_gemini = run_test_suite("gemini", "gemini-2.5-flash", temperature=0.3)
+print("Executando suíte de testes — Gemini (gemini-3.7-flash, temperature=0.3)...")
+res_gemini = run_test_suite("gemini", "gemini-3.7-flash", temperature=0.3)
 df_gemini = pd.DataFrame(res_gemini)
-df_gemini.insert(0, "modelo", "gemini-2.5-flash (T=0.3)")
+df_gemini.insert(0, "modelo", "gemini-3.7-flash (T=0.3)")
 df_gemini["latencia_s"] = [reference_latency("gemini") for _ in range(len(df_gemini))]
 
 print("Executando suíte de testes — OpenAI (gpt-4o-mini, temperature=0.9)...")
