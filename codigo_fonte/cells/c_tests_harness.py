@@ -15,7 +15,7 @@ def run_test_suite(provider: str, model_name: str, temperature: float = 0.3, top
     # --- Testes funcionais (thread nova por pergunta, sem memória entre eles) ---
     for t in FUNCTIONAL_TESTS:
         cfg = {"configurable": {"thread_id": str(uuid.uuid4())}}
-        time.sleep(2)  # evita estourar o limite de requisições por minuto (cota gratuita)
+        time.sleep(3)  # evita estourar o limite de requisições por minuto (cota gratuita)
         t0 = time.time()
         out = app.invoke({"messages": [HumanMessage(content=t["pergunta"])]}, config=cfg)
         dt = time.time() - t0
@@ -32,7 +32,7 @@ def run_test_suite(provider: str, model_name: str, temperature: float = 0.3, top
     cfg_mem = {"configurable": {"thread_id": str(uuid.uuid4())}}
     ultima_resposta = ""
     for i, msg in enumerate(MEMORY_TEST):
-        time.sleep(2)  # evita estourar o limite de requisições por minuto (cota gratuita)
+        time.sleep(3)  # evita estourar o limite de requisições por minuto (cota gratuita)
         t0 = time.time()
         out = app.invoke({"messages": [HumanMessage(content=msg)]}, config=cfg_mem)
         dt = time.time() - t0
@@ -48,7 +48,7 @@ def run_test_suite(provider: str, model_name: str, temperature: float = 0.3, top
     # --- Testes de segurança / guardrails ---
     for t in SECURITY_TESTS:
         cfg = {"configurable": {"thread_id": str(uuid.uuid4())}}
-        time.sleep(2)  # evita estourar o limite de requisições por minuto (cota gratuita)
+        time.sleep(3)  # evita estourar o limite de requisições por minuto (cota gratuita)
         t0 = time.time()
         out = app.invoke({"messages": [HumanMessage(content=t["pergunta"])]}, config=cfg)
         dt = time.time() - t0

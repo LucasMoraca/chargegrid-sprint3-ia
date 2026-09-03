@@ -5,18 +5,18 @@
 |---|---|---|
 | **Arquitetura** | Chamada manual e sequencial à API (função Python simples, sem grafo/orquestrador) | Grafo de agente LangGraph (StateGraph + checkpointer), reutilizável entre provedores |
 | **Memória** | Lista Python em memória local, montada manualmente a cada chamada; perdida ao reiniciar o kernel | Gerenciada pelo framework (MemorySaver) via thread_id, testada e validada em 3 turnos (Seção 7) |
-| **Seleção de modelo** | Escolha ad hoc (GPT-4o-mini), sem suíte comparativa formal | Baseada em suíte automatizada — modelo escolhido: gemini-3.7-flash (T=0.3) (ver relatorio_modelos.md) |
+| **Seleção de modelo** | Escolha ad hoc (GPT-4o-mini), sem suíte comparativa formal | Baseada em suíte automatizada — modelo escolhido: gemini-3.1-flash-lite (T=0.3) (ver relatorio_modelos.md) |
 | **Testes de segurança** | Não formalizados (nenhum caso de Prompt Injection documentado) | 5 casos automatizados (Prompt Injection, escopo, jurídico, financeiro, elétrico) |
-| **Medição de latência/tokens** | Qualitativa apenas ('Gemini mais rápido ~1-2s, GPT ~2-4s'), sem tabela | Automática por turno — latência média mínima observada: 0.76 s (gemini-3.7-flash (T=0.3)) |
+| **Medição de latência/tokens** | Qualitativa apenas ('Gemini mais rápido ~1-2s, GPT ~2-4s'), sem tabela | Automática por turno — latência média mínima observada: 0.76 s (gemini-3.1-flash-lite (T=0.3)) |
 | **Nº de casos de teste funcionais** | 5 (avaliação manual: Adequada/Parcialmente/Inadequada) | 4 (avaliação automática por palavra-chave: OK/REVISAR) |
 
 ### Resultados quantitativos da Sprint 03 (execução real desta sessão)
 
-| modelo                   |   latencia_media_s |   tokens_medio |   testes_ok |   testes_total | taxa_sucesso   |
-|:-------------------------|-------------------:|---------------:|------------:|---------------:|:---------------|
-| gemini-3.7-flash (T=0.3) |               0.76 |          32.5  |          10 |             12 | 83.3%          |
-| gpt-4o-mini (T=0.3)      |               1.4  |          48    |          10 |             12 | 83.3%          |
-| gpt-4o-mini (T=0.9)      |               1.67 |          63.08 |          10 |             12 | 83.3%          |
+| modelo                        |   latencia_media_s |   tokens_medio |   testes_ok |   testes_total | taxa_sucesso   |
+|:------------------------------|-------------------:|---------------:|------------:|---------------:|:---------------|
+| gemini-3.1-flash-lite (T=0.3) |               0.76 |          32.5  |          10 |             12 | 83.3%          |
+| gpt-4o-mini (T=0.3)           |               1.4  |          48    |          10 |             12 | 83.3%          |
+| gpt-4o-mini (T=0.9)           |               1.67 |          63.08 |          10 |             12 | 83.3%          |
 
 ### A nova arquitetura tornou o chatbot melhor?
 

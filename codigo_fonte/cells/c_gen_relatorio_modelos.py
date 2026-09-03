@@ -27,7 +27,7 @@ Gerado automaticamente pela suíte de testes automatizados (Seção 7 do noteboo
 | Modelo | Provedor | Parâmetros testados |
 |---|---|---|
 | gpt-4o-mini | OpenAI | temperature=0.3 e temperature=0.9 (top_p=1.0, max_tokens=512) |
-| gemini-3.7-flash | Google | temperature=0.3 (top_p=1.0, max_output_tokens=512) |
+| gemini-3.1-flash-lite | Google | temperature=0.3 (top_p=1.0, max_output_tokens=512) |
 
 ## 2. Configurações utilizadas
 

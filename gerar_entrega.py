@@ -59,10 +59,10 @@ df_openai = pd.DataFrame(res_openai)
 df_openai.insert(0, "modelo", "gpt-4o-mini (T=0.3)")
 df_openai["latencia_s"] = [reference_latency("openai") for _ in range(len(df_openai))]
 
-print("Executando suíte de testes — Gemini (gemini-3.7-flash, temperature=0.3)...")
-res_gemini = run_test_suite("gemini", "gemini-3.7-flash", temperature=0.3)
+print("Executando suíte de testes — Gemini (gemini-3.1-flash-lite, temperature=0.3)...")
+res_gemini = run_test_suite("gemini", "gemini-3.1-flash-lite", temperature=0.3)
 df_gemini = pd.DataFrame(res_gemini)
-df_gemini.insert(0, "modelo", "gemini-3.7-flash (T=0.3)")
+df_gemini.insert(0, "modelo", "gemini-3.1-flash-lite (T=0.3)")
 df_gemini["latencia_s"] = [reference_latency("gemini") for _ in range(len(df_gemini))]
 
 print("Executando suíte de testes — OpenAI (gpt-4o-mini, temperature=0.9)...")
